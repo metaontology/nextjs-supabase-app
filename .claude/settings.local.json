@@ -1,5 +1,4 @@
 {
-  "skipDangerousModePermissionPrompt": true,
   "permissions": {
     "allow": [
       "mcp__context7",
@@ -8,7 +7,10 @@
       "mcp__shadcn",
       "mcp__shrimp-task-manager",
       "mcp__serena",
-      "mcp__supabase"
+      "mcp__supabase",
+      "Bash(cp /home/hgjun/workspace/claude-lab/nextjs-supabase-app/docs/guides/ai-native-error-management.md /home/hgjun/workspace/ai-native-convention/추가작업/ai-native-error-management/refs/ai-native-error-management.md)",
+      "Bash(cp /home/hgjun/workspace/claude-lab/nextjs-supabase-app/.claude/rules/quality-gate.md /home/hgjun/workspace/ai-native-convention/추가작업/ai-native-error-management/refs/quality-gate.md)",
+      "Bash(cp /home/hgjun/workspace/claude-lab/nextjs-supabase-app/.claude/rules/runtime-checklist.md /home/hgjun/workspace/ai-native-convention/추가작업/ai-native-error-management/refs/runtime-checklist.md)"
     ]
   },
   "enableAllProjectMcpServers": true,
@@ -20,5 +22,6 @@
     "shrimp-task-manager",
     "serena",
     "supabase"
-  ]
+  ],
+  "skipDangerousModePermissionPrompt": true
 }

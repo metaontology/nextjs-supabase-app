@@ -22,7 +22,7 @@ export function UserStatus({ isOnline }) {
     <div
       className={cn(
         'h-3 w-3 rounded-full',
-        isOnline ? 'bg-green-500' : 'bg-gray-400'
+        isOnline ? 'bg-green-500' : 'bg-gray-400',
       )}
     />
   )
@@ -94,7 +94,7 @@ export default async function UserListPage() {
 async function UserList({ users }) {
   return (
     <div className="grid gap-4">
-      {users.map(user => (
+      {users.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
     </div>
@@ -119,7 +119,7 @@ export function UserSearchForm() {
     <div>
       <input
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="사용자 검색..."
       />
       <SearchResults results={results} />
@@ -264,7 +264,7 @@ interface DataFetcherProps<T> {
   children: (
     data: T | null,
     loading: boolean,
-    error: Error | null
+    error: Error | null,
   ) => React.ReactNode
 }
 
@@ -320,7 +320,7 @@ const cardVariants = cva(
       variant: 'default',
       size: 'md',
     },
-  }
+  },
 )
 
 interface CardProps extends VariantProps<typeof cardVariants> {
@@ -358,7 +358,7 @@ export function Accordion({ children, type = 'single' }) {
   const [openItems, setOpenItems] = useState<Set<string>>(new Set())
 
   const toggle = (value: string) => {
-    setOpenItems(prev => {
+    setOpenItems((prev) => {
       const newSet = new Set(prev)
       if (newSet.has(value)) {
         newSet.delete(value)
@@ -425,7 +425,7 @@ export const ExpensiveComponent = memo(function ExpensiveComponent({
 }) {
   // 복잡한 계산을 메모이제이션
   const processedData = useMemo(() => {
-    return data.map(item => ({
+    return data.map((item) => ({
       ...item,
       calculated: expensiveCalculation(item),
     }))
@@ -436,12 +436,12 @@ export const ExpensiveComponent = memo(function ExpensiveComponent({
     (id: string) => {
       onUpdate(id)
     },
-    [onUpdate]
+    [onUpdate],
   )
 
   return (
     <div>
-      {processedData.map(item => (
+      {processedData.map((item) => (
         <ExpensiveItem key={item.id} item={item} onUpdate={handleUpdate} />
       ))}
     </div>
@@ -532,15 +532,15 @@ export function Select<T>({
   return (
     <select
       value={value ? getValue(value) : ''}
-      onChange={e => {
+      onChange={(e) => {
         const selectedValue = options.find(
-          option => getValue(option) === e.target.value
+          (option) => getValue(option) === e.target.value,
         )
         if (selectedValue) onChange(selectedValue)
       }}
       className={className}
     >
-      {options.map(option => (
+      {options.map((option) => (
         <option key={getValue(option)} value={getValue(option)}>
           {getLabel(option)}
         </option>
@@ -554,8 +554,8 @@ export function Select<T>({
   options={users}
   value={selectedUser}
   onChange={setSelectedUser}
-  getLabel={user => user.name}
-  getValue={user => user.id}
+  getLabel={(user) => user.name}
+  getValue={(user) => user.id}
 />
 ```
 
@@ -594,7 +594,7 @@ export function Button<T extends boolean = false>(props: ButtonProps<T>) {
 function useToggle(initialValue: boolean = false) {
   const [value, setValue] = useState(initialValue)
 
-  const toggle = useCallback(() => setValue(prev => !prev), [])
+  const toggle = useCallback(() => setValue((prev) => !prev), [])
   const setTrue = useCallback(() => setValue(true), [])
   const setFalse = useCallback(() => setValue(false), [])
 

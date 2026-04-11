@@ -48,11 +48,13 @@ disable-model-invocation: true
 파싱 결과를 바탕으로 아래 형식의 명령을 생성하고 출력하라.
 
 **전체 명령 헤더** (항상 포함):
+
 ```
 mcp__shrimp-task-manager__execute_task 를 다음 절차대로 수행해줘:
 ```
 
 **Step 1** (공통):
+
 ```
 1. mcp__shrimp-task-manager__execute_task
    - tasks.json:: {task_name}
@@ -64,6 +66,7 @@ mcp__shrimp-task-manager__execute_task 를 다음 절차대로 수행해줘:
 **Step 2** (agent_path 유무로 분기):
 
 [agent_path 있는 경우]
+
 ```
 2. {agent_name} subagent에 구현 위임
    - call subagent: @{agent_path}
@@ -72,12 +75,14 @@ mcp__shrimp-task-manager__execute_task 를 다음 절차대로 수행해줘:
 ```
 
 [agent_path 없는 경우]
+
 ```
 2. 반환된 프롬프트 기반으로 직접 구현
    [constraint가 있는 경우에만] - 추가 제약사항: {constraint}
 ```
 
 **Step 3** (공통):
+
 ```
 3. mcp__shrimp-task-manager__verify_task
    - 구현 완료 후 {task_name} 완료 처리

@@ -4,20 +4,20 @@
 
 이 프로젝트는 **Docker 컨테이너** 안에서 실행되므로 `localhost`가 Windows Chrome을 가리키지 않습니다.
 
-| 항목 | 값 |
-|------|-----|
-| CDP 엔드포인트 | `http://172.17.0.1:19222` |
-| 실제 대상 | Windows Chrome (포트 9222 → Docker 브리지 172.17.0.1:19222 매핑) |
+| 항목           | 값                                                               |
+| -------------- | ---------------------------------------------------------------- |
+| CDP 엔드포인트 | `http://172.17.0.1:19222`                                        |
+| 실제 대상      | Windows Chrome (포트 9222 → Docker 브리지 172.17.0.1:19222 매핑) |
 
 ## ⚠️ CDP 탭 목록의 특성
 
 Chrome CDP는 실제 브라우저 탭 외에도 내부 타겟을 모두 노출합니다:
 
-| index | 실제 확인된 예시 | 실제 여부 |
-|-------|------|---------|
-| 0 | `(current) [Omnibox Popup](chrome://omnibox-popup.top-chrome/)` | ❌ Chrome 내부 UI |
-| 1 | `[새 탭](chrome://new-tab-page/)` | ✅ 사용자에게 실제로 보이는 탭 |
-| 2 | `[Omnibox Popup](chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html)` | ❌ Chrome 내부 UI |
+| index | 실제 확인된 예시                                                            | 실제 여부                      |
+| ----- | --------------------------------------------------------------------------- | ------------------------------ |
+| 0     | `(current) [Omnibox Popup](chrome://omnibox-popup.top-chrome/)`             | ❌ Chrome 내부 UI              |
+| 1     | `[새 탭](chrome://new-tab-page/)`                                           | ✅ 사용자에게 실제로 보이는 탭 |
+| 2     | `[Omnibox Popup](chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html)` | ❌ Chrome 내부 UI              |
 
 > Chrome 세션에서 실제 확인된 탭 목록 (2026-03-30) — Omnibox Popup이 마지막에 위치하는 케이스
 

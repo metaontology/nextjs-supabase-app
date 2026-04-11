@@ -5,13 +5,13 @@
 
 ## 스크립트 목록
 
-| 파일 | 용도 | 이벤트 |
-|------|------|--------|
-| `discord_notification.py` | 작업 완료 시 Discord 알림 | `Stop` |
-| `discord_stop.py` | Claude 중단 시 Discord 알림 | `Stop` |
-| `slack_notification.py` | 작업 완료 시 Slack 알림 | `Stop` |
-| `slack_stop.py` | Claude 중단 시 Slack 알림 | `Stop` |
-| `protect-config.py` | `./config` 폴더 접근 차단 | `PreToolUse` |
+| 파일                      | 용도                        | 이벤트       |
+| ------------------------- | --------------------------- | ------------ |
+| `discord_notification.py` | 작업 완료 시 Discord 알림   | `Stop`       |
+| `discord_stop.py`         | Claude 중단 시 Discord 알림 | `Stop`       |
+| `slack_notification.py`   | 작업 완료 시 Slack 알림     | `Stop`       |
+| `slack_stop.py`           | Claude 중단 시 Slack 알림   | `Stop`       |
+| `protect-config.py`       | `./config` 폴더 접근 차단   | `PreToolUse` |
 
 ## 활성화 방법
 

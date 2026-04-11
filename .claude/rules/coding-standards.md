@@ -3,40 +3,45 @@
 ## Server vs Client 컴포넌트
 
 ### 기본 원칙
+
 - **Server Component (기본)**: layout, page, 정적 UI, Supabase 데이터 페칭
 - **Client Component (`"use client"`)**: 훅 사용, 이벤트 핸들러, 브라우저 API, 폼 상태
 
 ### 파일별 분류
 
-| 파일 | Server/Client |
-|------|--------------|
-| `app/**/layout.tsx` | Server |
-| `app/**/page.tsx` | Server (기본) |
-| `components/auth-button.tsx` | Server (getClaims로 인증 상태 확인) |
-| `components/login-form.tsx` | Client (폼 상태) |
-| `components/sign-up-form.tsx` | Client (폼 상태) |
-| `components/logout-button.tsx` | Client (signOut 호출) |
-| `components/theme-switcher.tsx` | Client (useTheme) |
+| 파일                            | Server/Client                       |
+| ------------------------------- | ----------------------------------- |
+| `app/**/layout.tsx`             | Server                              |
+| `app/**/page.tsx`               | Server (기본)                       |
+| `components/auth-button.tsx`    | Server (getClaims로 인증 상태 확인) |
+| `components/login-form.tsx`     | Client (폼 상태)                    |
+| `components/sign-up-form.tsx`   | Client (폼 상태)                    |
+| `components/logout-button.tsx`  | Client (signOut 호출)               |
+| `components/theme-switcher.tsx` | Client (useTheme)                   |
 
 ---
 
 ## Supabase 클라이언트 사용 패턴
 
 ### Client Component에서 사용
+
 ```typescript
 // lib/supabase/client.ts의 createBrowserClient 기반
-import { createClient } from "@/lib/supabase/client"
-
-"use client"
+import { createClient } from '@/lib/supabase/client'
+;('use client')
 export function LoginForm() {
   const handleLogin = async () => {
-    const supabase = createClient()  // 함수 내부에서 생성
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const supabase = createClient() // 함수 내부에서 생성
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
   }
 }
 ```
 
 ### Server Component에서 사용
+
 ```typescript
 // lib/supabase/server.ts의 createServerClient 기반 (async)
 import { createClient } from "@/lib/supabase/server"
@@ -59,13 +64,14 @@ export async function UserDashboard() {
 ```
 
 ### ⚠️ 중요: Supabase 클라이언트 전역 저장 금지
+
 ```typescript
 // ❌ 금지 — Fluid compute 환경에서 세션 오류 발생
-const supabase = createClient()  // 모듈 최상위에 선언
+const supabase = createClient() // 모듈 최상위에 선언
 
 // ✅ 올바른 방법 — 항상 함수/컴포넌트 내부에서 생성
 export async function getData() {
-  const supabase = await createClient()  // 함수 내부
+  const supabase = await createClient() // 함수 내부
 }
 ```
 
@@ -74,6 +80,7 @@ export async function getData() {
 ## 인증 체크 패턴
 
 ### Server Component에서 인증 확인
+
 ```typescript
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
@@ -91,17 +98,18 @@ export default async function ProtectedPage() {
 ```
 
 ### 관리자 권한 체크
+
 ```typescript
 // profiles 테이블의 role 컬럼 확인
 const { data: profile } = await supabase
-  .from("profiles")
-  .select("role")
-  .eq("id", data.claims.sub)
+  .from('profiles')
+  .select('role')
+  .eq('id', data.claims.sub)
   .single()
 
-if (profile?.role !== "admin") {
+if (profile?.role !== 'admin') {
   await supabase.auth.signOut()
-  redirect("/auth/login")
+  redirect('/auth/login')
 }
 ```
 
@@ -112,11 +120,11 @@ if (profile?.role !== "admin") {
 항상 `@/` 경로 별칭 사용. 상대 경로(`../../`) 금지.
 
 ```typescript
-import { cn } from "@/lib/utils"
-import { createClient } from "@/lib/supabase/client"   // Client 전용
-import { createClient } from "@/lib/supabase/server"   // Server 전용
-import type { Database } from "@/lib/types/database.types"
-import { Button } from "@/components/ui/button"
+import { cn } from '@/lib/utils'
+import { createClient } from '@/lib/supabase/client' // Client 전용
+import { createClient } from '@/lib/supabase/server' // Server 전용
+import type { Database } from '@/lib/types/database.types'
+import { Button } from '@/components/ui/button'
 ```
 
 ---
@@ -176,13 +184,13 @@ className={cn(
 // ✅ Next.js 15에서 params/searchParams는 Promise
 export default async function Page({
   params,
-  searchParams
+  searchParams,
 }: {
   params: Promise<{ id: string }>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const { id } = await params        // await 필수
-  const query = await searchParams   // await 필수
+  const { id } = await params // await 필수
+  const query = await searchParams // await 필수
 }
 ```
 
@@ -228,16 +236,16 @@ react-hook-form 설치 후에는 `docs/guides/forms-react-hook-form.md` 참조.
 ## Supabase 데이터 타입 사용
 
 ```typescript
-import type { Database } from "@/lib/types/database.types"
+import type { Database } from '@/lib/types/database.types'
 
 // 테이블 행 타입
-type Profile = Database["public"]["Tables"]["profiles"]["Row"]
+type Profile = Database['public']['Tables']['profiles']['Row']
 
 // INSERT 타입
-type ProfileInsert = Database["public"]["Tables"]["profiles"]["Insert"]
+type ProfileInsert = Database['public']['Tables']['profiles']['Insert']
 
 // UPDATE 타입
-type ProfileUpdate = Database["public"]["Tables"]["profiles"]["Update"]
+type ProfileUpdate = Database['public']['Tables']['profiles']['Update']
 ```
 
 ---
@@ -274,11 +282,11 @@ type ProfileUpdate = Database["public"]["Tables"]["profiles"]["Update"]
 ```typescript
 // lib/supabase/proxy.ts의 updateSession() 함수에서 공개 경로 추가
 if (
-  request.nextUrl.pathname !== "/" &&
+  request.nextUrl.pathname !== '/' &&
   !user &&
-  !request.nextUrl.pathname.startsWith("/login") &&
-  !request.nextUrl.pathname.startsWith("/auth") &&
-  !request.nextUrl.pathname.startsWith("/새공개경로")  // 추가
+  !request.nextUrl.pathname.startsWith('/login') &&
+  !request.nextUrl.pathname.startsWith('/auth') &&
+  !request.nextUrl.pathname.startsWith('/새공개경로') // 추가
 ) {
   // 미인증 → 로그인 리디렉션
 }

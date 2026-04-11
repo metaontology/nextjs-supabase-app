@@ -3,16 +3,9 @@
   "multilineInput": true,
   "language": "korean",
   "permissions": {
-    "allow": [
-      "Bash",
-      "WebFetch",
-      "WebSearch",
-      "mcp__context7"
-    ]
+    "allow": ["Bash", "WebFetch", "WebSearch", "mcp__context7"]
   },
-  "enabledMcpjsonServers": [
-    "context7"
-  ],
+  "enabledMcpjsonServers": ["context7"],
   "plansDirectory": "./docs/plans/",
   "statusLine": {
     "type": "command",

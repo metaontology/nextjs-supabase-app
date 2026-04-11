@@ -75,18 +75,21 @@ end_task가 빈값이 아닌 경우, `shrimp_data/tasks.json`을 읽어 end_task
 **[start_task 없는 경우] 전체 명령:**
 
 헤더 (end_task 유무로 분기):
+
 ```
 [end_task 없음] 모든 태스크를 continuous mode로 실행해줘:
 [end_task 있음] {end_task}까지 continuous mode로 실행해줘:
 ```
 
 Step 1 (공통):
+
 ```
 1. mcp__shrimp-task-manager__list_tasks
    - PENDING 상태 태스크 목록 확인
 ```
 
 Step 2 - a (공통):
+
 ```
 2. 각 태스크를 의존성 순서대로 반복 실행:
    a. mcp__shrimp-task-manager__execute_task
@@ -98,6 +101,7 @@ Step 2 - a (공통):
 Step 2 - b (agent_path 유무로 분기):
 
 [agent_path 있는 경우]
+
 ```
    b. {agent_name} subagent에 구현 위임
       - call subagent: @{agent_path}
@@ -106,18 +110,21 @@ Step 2 - b (agent_path 유무로 분기):
 ```
 
 [agent_path 없는 경우]
+
 ```
    b. 반환된 프롬프트 기반으로 직접 구현
       [constraint가 있는 경우에만] - 추가 제약사항: {constraint}
 ```
 
 Step 2 - c (공통):
+
 ```
    c. mcp__shrimp-task-manager__verify_task
       - 구현 완료 후 해당 태스크 완료 처리
 ```
 
 Step 3 (end_task 유무로 분기):
+
 ```
 [end_task 없음] 3. 모든 PENDING 태스크 완료될 때까지 반복
 [end_task 있음] 3. {end_task} 완료 후 중단 (이후 태스크는 실행하지 않음)
@@ -128,12 +135,14 @@ Step 3 (end_task 유무로 분기):
 **[start_task 있는 경우] 전체 명령:**
 
 헤더 (end_task 유무로 분기):
+
 ```
 [end_task 없음] {start_task}부터 continuous mode로 실행해줘:
 [end_task 있음] {start_task}부터 {end_task}까지 continuous mode로 실행해줘:
 ```
 
 Step 1 (공통):
+
 ```
 1. mcp__shrimp-task-manager__execute_task
    - tasks.json:: {start_task}부터 시작
@@ -145,6 +154,7 @@ Step 1 (공통):
 Step 2 (agent_path 유무로 분기):
 
 [agent_path 있는 경우]
+
 ```
 2. {agent_name} subagent에 구현 위임
    - call subagent: @{agent_path}
@@ -153,12 +163,14 @@ Step 2 (agent_path 유무로 분기):
 ```
 
 [agent_path 없는 경우]
+
 ```
 2. 반환된 프롬프트 기반으로 직접 구현
    [constraint가 있는 경우에만] - 추가 제약사항: {constraint}
 ```
 
 Step 3 (end_task 유무로 분기):
+
 ```
 [end_task 없음] 3. mcp__shrimp-task-manager__verify_task
                    - 완료 처리 후 다음 PENDING 태스크로 계속 진행

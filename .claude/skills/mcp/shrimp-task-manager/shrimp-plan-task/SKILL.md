@@ -21,6 +21,7 @@ disable-model-invocation: true
 - requirements가 빈값(`""`)이면 → **"requirements는 필수 인자입니다. ROADMAP.md 등 요구사항 문서 경로를 입력 후 다시 실행해주세요."** 출력 후 즉시 중단
 
 existing_tasks 최종 결정:
+
 - improve 활성화 OR dependencies 존재 → true (자동)
 - 명시적 `true` 입력 → true
 - 나머지(`""` 또는 `false`) → false
@@ -30,11 +31,13 @@ existing_tasks 최종 결정:
 파싱 결과를 바탕으로 아래 형식의 명령을 생성하고 출력하라.
 
 **전체 명령 헤더** (항상 포함):
+
 ```
 mcp__shrimp-task-manager__plan_task 를 다음 절차대로 수행해줘:
 ```
 
 **Step 1** (공통):
+
 ```
 1. mcp__shrimp-task-manager__plan_task
    - description: {description}
@@ -47,6 +50,7 @@ mcp__shrimp-task-manager__plan_task 를 다음 절차대로 수행해줘:
 **Step 2** (agent_path 유무로 분기):
 
 [agent_path 있는 경우]
+
 ```
 2. {agent_name} subagent에 태스크 설계 위임
    - call subagent: @{agent_path}
@@ -54,12 +58,14 @@ mcp__shrimp-task-manager__plan_task 를 다음 절차대로 수행해줘:
 ```
 
 [agent_path 없는 경우]
+
 ```
 2. 반환된 프롬프트 기반으로 태스크 분석 및 설계
    - 코드베이스 탐색 후 각 태스크 명세 작성
 ```
 
 **Step 3** (공통):
+
 ```
 3. mcp__shrimp-task-manager__split_tasks
    - 설계한 태스크 목록을 tasks.json에 저장

@@ -16,24 +16,20 @@
     },
     "sequential-thinking": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
     "shadcn": {
       "command": "npx",
-      "args": [
-        "shadcn@latest",
-        "mcp"
-      ]
+      "args": ["shadcn@latest", "mcp"]
     },
     "shrimp-task-manager": {
       "command": "node",
-      "args": ["/home/hgjun/workspace/library/claude/mcp/mcp-shrimp-task-manager/dist/index.js"],
+      "args": [
+        "/home/hgjun/workspace/library/claude/mcp/mcp-shrimp-task-manager/dist/index.js"
+      ],
       "env": {
         "DATA_DIR": "./shrimp_data",
-        "TEMPLATES_USE": "en",  
+        "TEMPLATES_USE": "en",
         "ENABLE_GUI": "false"
       }
     },

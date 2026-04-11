@@ -2,15 +2,15 @@
 
 ## 기술 스택
 
-| 항목 | 버전 / 내용 |
-|------|------------|
-| Next.js | 15.5.3 (App Router) |
-| React | 19 |
-| TypeScript | 5 (strict 모드) |
-| Tailwind CSS | 3.4.x |
-| UI 라이브러리 | shadcn/ui (new-york 스타일, CSS 변수 기반) |
-| 패키지 매니저 | npm |
-| 백엔드/DB | Supabase (PostgreSQL + Auth + Storage + Realtime) |
+| 항목          | 버전 / 내용                                       |
+| ------------- | ------------------------------------------------- |
+| Next.js       | 15.5.3 (App Router)                               |
+| React         | 19                                                |
+| TypeScript    | 5 (strict 모드)                                   |
+| Tailwind CSS  | 3.4.x                                             |
+| UI 라이브러리 | shadcn/ui (new-york 스타일, CSS 변수 기반)        |
+| 패키지 매니저 | npm                                               |
+| 백엔드/DB     | Supabase (PostgreSQL + Auth + Storage + Realtime) |
 
 ## 핵심 의존성
 
@@ -27,6 +27,7 @@
 ```
 
 **미설치 / 향후 추가 예정:**
+
 - `react-hook-form`, `zod`, `@hookform/resolvers` — Task 004에서 설치
 - `recharts` — Task 006에서 설치
 
@@ -84,17 +85,17 @@ docs/
 
 ## 라우트 구조
 
-| 경로 | 설명 | 접근 권한 |
-|------|------|----------|
-| `/` | 랜딩 페이지 | 공개 |
-| `/auth/login` | 로그인 | 공개 |
-| `/auth/sign-up` | 회원가입 | 공개 |
-| `/auth/sign-up-success` | 가입 완료 안내 | 공개 |
-| `/auth/forgot-password` | 비밀번호 재설정 요청 | 공개 |
-| `/auth/update-password` | 비밀번호 변경 | 인증 필요 |
-| `/auth/confirm` | 이메일 인증 콜백 (Route Handler) | 공개 |
-| `/auth/error` | 인증 오류 페이지 | 공개 |
-| `/protected` | 인증된 사용자용 예시 페이지 | 인증 필요 |
+| 경로                    | 설명                             | 접근 권한 |
+| ----------------------- | -------------------------------- | --------- |
+| `/`                     | 랜딩 페이지                      | 공개      |
+| `/auth/login`           | 로그인                           | 공개      |
+| `/auth/sign-up`         | 회원가입                         | 공개      |
+| `/auth/sign-up-success` | 가입 완료 안내                   | 공개      |
+| `/auth/forgot-password` | 비밀번호 재설정 요청             | 공개      |
+| `/auth/update-password` | 비밀번호 변경                    | 인증 필요 |
+| `/auth/confirm`         | 이메일 인증 콜백 (Route Handler) | 공개      |
+| `/auth/error`           | 인증 오류 페이지                 | 공개      |
+| `/protected`            | 인증된 사용자용 예시 페이지      | 인증 필요 |
 
 ## 미들웨어 동작 (`proxy.ts`)
 
@@ -115,12 +116,15 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=  # Supabase publishable key (sb_publishabl
 ## 데이터베이스 현황
 
 ### 생성된 테이블
+
 - `profiles` — auth.users와 1:1, 회원가입 시 트리거로 자동 생성
 
 ### RLS 정책
+
 - `profiles`: 본인 레코드만 SELECT/UPDATE 가능, 관리자(role='admin')는 전체 조회 가능
 
 ### Supabase DB 타입 재생성
+
 ```bash
 npx supabase gen types typescript --project-id <project-id> > lib/types/database.types.ts
 ```

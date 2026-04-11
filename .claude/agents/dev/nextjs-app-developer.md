@@ -10,12 +10,12 @@ memory: project
 
 ## ⚠️ v16 핵심 변경사항 (반드시 숙지)
 
-| 항목 | v15 | v16 |
-|------|-----|-----|
+| 항목                      | v15                     | v16                              |
+| ------------------------- | ----------------------- | -------------------------------- |
 | `params` / `searchParams` | 비동기 전환 (하위 호환) | **완전 비동기 — 동기 접근 제거** |
-| `middleware.ts` | 사용 가능 | **`proxy.ts`로 대체** |
-| `unstable_` 접두사 API | `unstable_cache` 등 | **접두사 제거 → `cache` 등** |
-| 업그레이드 | — | `npx @next/codemod upgrade 16` |
+| `middleware.ts`           | 사용 가능               | **`proxy.ts`로 대체**            |
+| `unstable_` 접두사 API    | `unstable_cache` 등     | **접두사 제거 → `cache` 등**     |
+| 업그레이드                | —                       | `npx @next/codemod upgrade 16`   |
 
 ---
 
@@ -25,16 +25,16 @@ memory: project
 
 ### 기술 스택
 
-| 항목 | 버전 |
-|------|------|
-| Next.js | 16.2.1 (App Router) |
-| React | 19.2.4 |
-| TypeScript | ^5 (strict) |
-| Tailwind CSS | ^4 |
-| radix-ui | ^1.4.3 (모노리식 단일 패키지) |
-| shadcn/ui | radix-nova 테마 |
-| zod | ^4.3.6 |
-| react-hook-form | ^7.72.0 |
+| 항목            | 버전                          |
+| --------------- | ----------------------------- |
+| Next.js         | 16.2.1 (App Router)           |
+| React           | 19.2.4                        |
+| TypeScript      | ^5 (strict)                   |
+| Tailwind CSS    | ^4                            |
+| radix-ui        | ^1.4.3 (모노리식 단일 패키지) |
+| shadcn/ui       | radix-nova 테마               |
+| zod             | ^4.3.6                        |
+| react-hook-form | ^7.72.0                       |
 
 ### 디렉토리 구조
 
@@ -71,7 +71,7 @@ types/
   notion.ts               # Notion API 응답 타입 (생성 필요)
 ```
 
-### 환경 변수 (서버 전용, NEXT_PUBLIC_ 없음)
+### 환경 변수 (서버 전용, NEXT*PUBLIC* 없음)
 
 ```
 NOTION_API_KEY
@@ -92,36 +92,36 @@ NOTION_ITEMS_DATABASE_ID
 
 ### 라우팅 파일
 
-| 파일 | 용도 | 비고 |
-|------|------|------|
-| `layout.tsx` | 공유 레이아웃 (상태 유지, 재렌더링 안 됨) | Server |
-| `page.tsx` | 라우트 고유 UI | Server (기본) |
-| `loading.tsx` | Suspense 기반 로딩 UI | Server |
-| `error.tsx` | 에러 경계 | **Client 필수** |
-| `global-error.tsx` | 루트 에러 경계 | **Client + html/body 포함** |
-| `not-found.tsx` | 404 UI | Server |
-| `route.ts` | API 엔드포인트 | Server |
-| `template.tsx` | 네비게이션마다 재렌더링 | Server |
-| `default.tsx` | 병렬 라우트 폴백 | Server |
+| 파일               | 용도                                      | 비고                        |
+| ------------------ | ----------------------------------------- | --------------------------- |
+| `layout.tsx`       | 공유 레이아웃 (상태 유지, 재렌더링 안 됨) | Server                      |
+| `page.tsx`         | 라우트 고유 UI                            | Server (기본)               |
+| `loading.tsx`      | Suspense 기반 로딩 UI                     | Server                      |
+| `error.tsx`        | 에러 경계                                 | **Client 필수**             |
+| `global-error.tsx` | 루트 에러 경계                            | **Client + html/body 포함** |
+| `not-found.tsx`    | 404 UI                                    | Server                      |
+| `route.ts`         | API 엔드포인트                            | Server                      |
+| `template.tsx`     | 네비게이션마다 재렌더링                   | Server                      |
+| `default.tsx`      | 병렬 라우트 폴백                          | Server                      |
 
 ### 동적 라우트 패턴
 
-| 패턴 | URL 예시 | 설명 |
-|------|----------|------|
-| `[id]` | `/post/1` | 단일 동적 세그먼트 |
-| `[...slug]` | `/a/b/c` | Catch-all |
-| `[[...slug]]` | `/` 또는 `/a/b` | 선택적 Catch-all |
+| 패턴          | URL 예시        | 설명               |
+| ------------- | --------------- | ------------------ |
+| `[id]`        | `/post/1`       | 단일 동적 세그먼트 |
+| `[...slug]`   | `/a/b/c`        | Catch-all          |
+| `[[...slug]]` | `/` 또는 `/a/b` | 선택적 Catch-all   |
 
 ### 라우트 구조 패턴
 
-| 패턴 | 설명 |
-|------|------|
-| `(folder)` | 라우트 그룹 (URL 미반영) |
-| `@folder` | 병렬 라우트 슬롯 |
-| `(.)folder` | 같은 레벨 인터셉트 |
-| `(..)folder` | 한 레벨 위 인터셉트 |
-| `(...)folder` | 루트에서 인터셉트 |
-| `_folder` | 라우팅 제외 Private 폴더 |
+| 패턴          | 설명                     |
+| ------------- | ------------------------ |
+| `(folder)`    | 라우트 그룹 (URL 미반영) |
+| `@folder`     | 병렬 라우트 슬롯         |
+| `(.)folder`   | 같은 레벨 인터셉트       |
+| `(..)folder`  | 한 레벨 위 인터셉트      |
+| `(...)folder` | 루트에서 인터셉트        |
+| `_folder`     | 라우팅 제외 Private 폴더 |
 
 ### 컴포넌트 렌더링 계층 (중첩 순서)
 
@@ -131,13 +131,13 @@ layout → template → error → loading → not-found → page
 
 ### 메타데이터 파일
 
-| 파일 | 용도 |
-|------|------|
-| `favicon.ico` | Favicon |
+| 파일                  | 용도                  |
+| --------------------- | --------------------- |
+| `favicon.ico`         | Favicon               |
 | `opengraph-image.tsx` | OG 이미지 (동적 생성) |
-| `twitter-image.tsx` | Twitter 카드 이미지 |
-| `sitemap.ts` | 사이트맵 생성 |
-| `robots.ts` | robots.txt 생성 |
+| `twitter-image.tsx`   | Twitter 카드 이미지   |
+| `sitemap.ts`          | 사이트맵 생성         |
+| `robots.ts`           | robots.txt 생성       |
 
 ---
 
@@ -285,7 +285,7 @@ import { NextRequest, NextResponse } from 'next/server'
 // GET — 정적 캐싱 가능
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params
   const data = await getData(id)
@@ -323,14 +323,14 @@ export function proxy(request: NextRequest) {
 
 ### 판단 기준
 
-| 조건 | 컴포넌트 유형 |
-|------|-------------|
-| 데이터 페칭, DB 접근 | Server |
-| 정적 UI 렌더링 | Server |
-| `useState`, `useEffect` 등 훅 사용 | **Client** |
-| `onClick` 등 이벤트 핸들러 | **Client** |
-| 브라우저 API (`window`, `localStorage`) | **Client** |
-| `useTheme`, `useRouter` 등 | **Client** |
+| 조건                                    | 컴포넌트 유형 |
+| --------------------------------------- | ------------- |
+| 데이터 페칭, DB 접근                    | Server        |
+| 정적 UI 렌더링                          | Server        |
+| `useState`, `useEffect` 등 훅 사용      | **Client**    |
+| `onClick` 등 이벤트 핸들러              | **Client**    |
+| 브라우저 API (`window`, `localStorage`) | **Client**    |
+| `useTheme`, `useRouter` 등              | **Client**    |
 
 ### 서버 컴포넌트 (기본값)
 
@@ -515,7 +515,7 @@ import { unstable_cache } from 'next/cache'
 const getCachedInvoice = unstable_cache(
   async (id: string) => db.invoices.findUnique({ where: { id } }),
   ['invoice'],
-  { tags: ['invoices'], revalidate: 3600 }
+  { tags: ['invoices'], revalidate: 3600 },
 )
 ```
 
@@ -525,10 +525,10 @@ const getCachedInvoice = unstable_cache(
 
 ### 새 라우트 추가 기준
 
-| 원하는 레이아웃 | 파일 경로 |
-|----------------|---------|
-| PublicLayout (헤더+푸터) | `app/(public)/새경로/page.tsx` |
-| 독립 레이아웃 | `app/새경로/page.tsx` + `app/새경로/layout.tsx` |
+| 원하는 레이아웃          | 파일 경로                                       |
+| ------------------------ | ----------------------------------------------- |
+| PublicLayout (헤더+푸터) | `app/(public)/새경로/page.tsx`                  |
+| 독립 레이아웃            | `app/새경로/page.tsx` + `app/새경로/layout.tsx` |
 
 ### 병렬 라우트
 
@@ -689,7 +689,7 @@ export function proxy(request: NextRequest) {
 ```typescript
 // ❌ v16에서 동작하지 않음 (동기 접근 제거됨)
 export function Page({ params }: { params: { id: string } }) {
-  const id = params.id  // 오류
+  const id = params.id // 오류
 }
 
 // ✅ v16 올바른 패턴
@@ -709,6 +709,7 @@ npm install next@16 react@19 react-dom@19
 ```
 
 codemod가 자동으로 처리하는 항목:
+
 - `middleware.ts` → `proxy.ts` 파일명 변경
 - `next.config.js` turbopack 설정 업데이트
 - `unstable_` 접두사 제거
@@ -731,7 +732,7 @@ vercel --prod
 ```javascript
 // next.config.ts
 const nextConfig = {
-  output: 'standalone',  // 최소 파일만 포함한 standalone 빌드
+  output: 'standalone', // 최소 파일만 포함한 standalone 빌드
 }
 ```
 
