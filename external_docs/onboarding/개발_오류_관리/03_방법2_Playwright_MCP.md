@@ -58,3 +58,16 @@ rules/runtime-checklist.md
 6. 코드 변경 후 작업 완료 전 `check-all` 실행 필수 → `quality-gate.md` 참조
 7. UI·API·인증 플로우 변경 시 Playwright MCP로 E2E 테스트 수행 필수 → `runtime-checklist.md` 참조
 ```
+
+##### git commit
+
+```
+/git-commit
+사용해서 현재까지 작업 의미 있는 단위로 commit 해줘
+```
+
+##### git push
+
+```
+remote repo에 git push해줘
+```
