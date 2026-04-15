@@ -98,7 +98,7 @@ export default async function EventsPage() {
       <Link href="/events/new">
         <Button
           size="lg"
-          className="fixed bottom-20 right-4 z-40 min-h-[48px] gap-2 rounded-full shadow-lg"
+          className="fixed right-4 bottom-20 z-40 min-h-[48px] gap-2 rounded-full shadow-lg"
           aria-label="새 이벤트 만들기"
         >
           <Plus className="h-5 w-5" />

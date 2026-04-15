@@ -91,7 +91,7 @@ export function MobileNav({ showCreateTab = true }: MobileNavProps) {
                   aria-hidden="true"
                 />
                 {/* 탭 레이블 */}
-                <span className="text-xs font-medium leading-none">
+                <span className="text-xs leading-none font-medium">
                   {label}
                 </span>
               </Link>

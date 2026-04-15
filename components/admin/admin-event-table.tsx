@@ -128,7 +128,7 @@ export function AdminEventTable({ rows }: AdminEventTableProps) {
                     </div>
                   </td>
                   {/* 날짜 */}
-                  <td className="whitespace-nowrap px-4 py-3 text-foreground">
+                  <td className="px-4 py-3 whitespace-nowrap text-foreground">
                     {formatEventDate(row.date)}
                   </td>
                   {/* 장소 */}
@@ -144,7 +144,7 @@ export function AdminEventTable({ rows }: AdminEventTableProps) {
                     </Badge>
                   </td>
                   {/* 생성일 */}
-                  <td className="whitespace-nowrap px-4 py-3 text-foreground">
+                  <td className="px-4 py-3 whitespace-nowrap text-foreground">
                     {formatEventDate(row.createdAt)}
                   </td>
                 </tr>

@@ -81,7 +81,7 @@ export default async function ProfilePage() {
 
       {/* 활동 통계 섹션 */}
       <section className="border-t p-4">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h2 className="mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
           활동 요약
         </h2>
         <div className="grid grid-cols-2 gap-3">
@@ -92,7 +92,7 @@ export default async function ProfilePage() {
                 <Calendar className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-2xl font-bold leading-none">{stats.total}</p>
+                <p className="text-2xl leading-none font-bold">{stats.total}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
                   전체 이벤트
                 </p>
@@ -107,7 +107,7 @@ export default async function ProfilePage() {
                 <Users className="h-5 w-5 text-blue-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold leading-none">
+                <p className="text-2xl leading-none font-bold">
                   {stats.totalParticipants}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">총 참여자</p>
@@ -122,7 +122,7 @@ export default async function ProfilePage() {
                 <Clock className="h-5 w-5 text-yellow-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold leading-none">
+                <p className="text-2xl leading-none font-bold">
                   {stats.upcoming}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">예정</p>
@@ -137,7 +137,7 @@ export default async function ProfilePage() {
                 <CheckCircle className="h-5 w-5 text-emerald-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold leading-none">{stats.ended}</p>
+                <p className="text-2xl leading-none font-bold">{stats.ended}</p>
                 <p className="mt-1 text-xs text-muted-foreground">완료</p>
               </div>
             </CardContent>
@@ -150,7 +150,7 @@ export default async function ProfilePage() {
                 <UserCheck className="h-5 w-5 text-purple-500" />
               </div>
               <div>
-                <p className="text-2xl font-bold leading-none">
+                <p className="text-2xl leading-none font-bold">
                   {stats.participated}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">

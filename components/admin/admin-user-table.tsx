@@ -148,7 +148,7 @@ export function AdminUserTable({ rows }: AdminUserTableProps) {
                       {row.joinedEventCount}
                     </td>
                     {/* 가입일 */}
-                    <td className="whitespace-nowrap px-4 py-3 text-foreground">
+                    <td className="px-4 py-3 whitespace-nowrap text-foreground">
                       {formatEventDate(row.createdAt)}
                     </td>
                   </tr>
