@@ -14,8 +14,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
     <div className="mx-auto min-h-screen w-full max-w-[430px] pb-16">
       {children}
       {/* 하단 고정 모바일 내비게이션 — usePathname 사용으로 Suspense 래핑 필수 */}
+      {/* TODO: Task 008 이후 실제 사용자 역할 기반으로 showCreateTab 동적 처리 예정 */}
       <Suspense fallback={null}>
-        <MobileNav />
+        <MobileNav showCreateTab={true} />
       </Suspense>
     </div>
   )

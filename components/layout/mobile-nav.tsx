@@ -9,7 +9,7 @@ import { Calendar, Home, Plus, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { NavItem } from '@/lib/types'
 
-// 탭 목록: 홈, 내 이벤트, 프로필
+// 탭 목록: 홈, 내 이벤트, 새 이벤트, 프로필
 const navItems: NavItem[] = [
   {
     href: '/',
@@ -33,7 +33,17 @@ const navItems: NavItem[] = [
   },
 ]
 
-export function MobileNav() {
+interface MobileNavProps {
+  /** 이벤트 생성 탭 표시 여부 — false면 참여자 전용 네비게이션(3개 탭) */
+  showCreateTab?: boolean
+}
+
+export function MobileNav({ showCreateTab = true }: MobileNavProps) {
+  // showCreateTab이 false면 '새 이벤트' 탭 제외 (참여자 전용 네비게이션)
+  const items = showCreateTab
+    ? navItems
+    : navItems.filter((item) => item.href !== '/events/new')
+
   // 현재 경로 감지
   const pathname = usePathname()
 
@@ -44,7 +54,7 @@ export function MobileNav() {
       aria-label="모바일 내비게이션"
     >
       <ul className="flex h-16 items-center justify-around">
-        {navItems.map(({ href, label, icon: Icon }) => {
+        {items.map(({ href, label, icon: Icon }) => {
           // 현재 경로와 탭 경로 일치 여부 확인
           // - '/'는 정확 일치만 (하위 경로가 없음)
           // - 나머지는 정확 일치 OR 하위 경로 포함 (예: /events/123 → '내 이벤트' 탭 활성)
@@ -52,7 +62,7 @@ export function MobileNav() {
           const isActive = (() => {
             if (pathname === href) return true
             if (href === '/') return false
-            const isOtherTabExact = navItems.some(
+            const isOtherTabExact = items.some(
               (item) => item.href !== href && pathname === item.href,
             )
             if (isOtherTabExact) return false
