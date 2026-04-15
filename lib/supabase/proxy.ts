@@ -52,11 +52,15 @@ export async function updateSession(request: NextRequest) {
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
     !request.nextUrl.pathname.startsWith('/auth') &&
-    !request.nextUrl.pathname.startsWith('/invite')
+    !request.nextUrl.pathname.startsWith('/invite') &&
+    !request.nextUrl.pathname.startsWith('/admin/login')
   ) {
-    // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
-    url.pathname = '/auth/login'
+    // /admin/* 미인증 → 관리자 전용 로그인 페이지로 리디렉션
+    // 그 외 → 일반 로그인 페이지로 리디렉션
+    url.pathname = request.nextUrl.pathname.startsWith('/admin')
+      ? '/admin/login'
+      : '/auth/login'
     return NextResponse.redirect(url)
   }
 
