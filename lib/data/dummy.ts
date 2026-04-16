@@ -58,7 +58,7 @@ export const DUMMY_EVENTS: Event[] = [
     title: '2026 봄 팀 워크숍',
     description:
       '팀원들과 함께하는 분기별 워크숍입니다. 아이디어를 나누고 협업 방식을 개선합니다.',
-    date: '2026-06-15T10:00:00Z',
+    event_date: '2026-06-15T10:00:00Z',
     location: '서울 강남구 테헤란로 123',
     invite_code: 'SPRING26',
     // picsum.photos — seed 값으로 이벤트별 결정적 커버 이미지 생성
@@ -74,7 +74,7 @@ export const DUMMY_EVENTS: Event[] = [
     title: '4월 정기 해커톤',
     description:
       '매월 진행되는 사내 해커톤. 24시간 동안 새로운 기능을 프로토타이핑합니다.',
-    date: '2026-04-14T09:00:00Z',
+    event_date: '2026-04-14T09:00:00Z',
     location: '서울 마포구 공덕동 456',
     invite_code: 'HACK0426',
     cover_image_url: 'https://picsum.photos/seed/event-2/800/400',
@@ -89,7 +89,7 @@ export const DUMMY_EVENTS: Event[] = [
     title: '3월 네트워킹 밋업',
     description:
       '다양한 직군의 멤버들이 모여 경험과 인사이트를 공유하는 네트워킹 행사입니다.',
-    date: '2026-03-20T18:00:00Z',
+    event_date: '2026-03-20T18:00:00Z',
     location: '서울 종로구 청계천로 789',
     invite_code: 'NET0326',
     cover_image_url: 'https://picsum.photos/seed/event-3/800/400',
@@ -103,7 +103,7 @@ export const DUMMY_EVENTS: Event[] = [
     id: 'event-4',
     title: '5월 독서 모임',
     description: '함께 책을 읽고 생각을 나누는 월간 독서 모임입니다.',
-    date: '2026-05-25T14:00:00Z',
+    event_date: '2026-05-25T14:00:00Z',
     location: '서울 서초구 반포대로 200',
     invite_code: 'READ0526',
     cover_image_url: 'https://picsum.photos/seed/event-4/800/400',
@@ -128,6 +128,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-1-1',
     event_id: 'event-1',
     user_id: 'user-1',
+    role: 'owner',
     joined_at: '2026-04-02T09:00:00Z',
     profile: {
       full_name: '김앨리스',
@@ -138,6 +139,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-1-2',
     event_id: 'event-1',
     user_id: 'user-2',
+    role: 'member',
     joined_at: '2026-04-03T10:00:00Z',
     profile: {
       full_name: '이밥',
@@ -149,6 +151,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-2-1',
     event_id: 'event-2',
     user_id: 'user-1',
+    role: 'owner',
     joined_at: '2026-04-05T09:00:00Z',
     profile: {
       full_name: '김앨리스',
@@ -159,6 +162,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-2-2',
     event_id: 'event-2',
     user_id: 'user-2',
+    role: 'member',
     joined_at: '2026-04-06T11:00:00Z',
     profile: {
       full_name: '이밥',
@@ -169,6 +173,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-2-3',
     event_id: 'event-2',
     user_id: 'user-3',
+    role: 'member',
     joined_at: '2026-04-07T14:00:00Z',
     profile: {
       full_name: '박캐롤',
@@ -180,6 +185,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-3-1',
     event_id: 'event-3',
     user_id: 'user-2',
+    role: 'owner',
     joined_at: '2026-03-05T09:00:00Z',
     profile: {
       full_name: '이밥',
@@ -190,6 +196,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-3-2',
     event_id: 'event-3',
     user_id: 'user-3',
+    role: 'member',
     joined_at: '2026-03-06T10:00:00Z',
     profile: {
       full_name: '박캐롤',
@@ -201,6 +208,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-4-1',
     event_id: 'event-4',
     user_id: 'user-1',
+    role: 'member',
     joined_at: '2026-04-11T10:00:00Z',
     profile: {
       full_name: '김앨리스',
@@ -211,6 +219,7 @@ export const DUMMY_PARTICIPANTS: ParticipantWithProfile[] = [
     id: 'part-4-2',
     event_id: 'event-4',
     user_id: 'user-2',
+    role: 'owner',
     joined_at: '2026-04-10T09:00:00Z',
     profile: {
       full_name: '이밥',
@@ -359,10 +368,11 @@ export function getAdminEventRows(): EventTableRow[] {
       title: e.title,
       ownerName: owner?.full_name ?? '알 수 없음',
       ownerEmail: owner?.email ?? '',
-      date: e.date,
+      date: e.event_date,
       location: e.location,
       participantCount,
-      status: e.status,
+      // DB의 status는 string 타입이므로 EventStatus로 단언
+      status: e.status as import('@/lib/types/event').EventStatus,
       createdAt: e.created_at,
     }
   })
@@ -386,7 +396,8 @@ export function getAdminUserRows(): UserTableRow[] {
       email: u.email ?? '',
       fullName: u.full_name,
       avatarUrl: u.avatar_url,
-      role: u.role,
+      // UserProfile.role은 DB string 타입이므로 UserRole로 단언
+      role: u.role as import('@/lib/types/user').UserRole,
       eventCount,
       joinedEventCount,
       createdAt: u.created_at,

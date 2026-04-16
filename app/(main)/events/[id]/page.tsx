@@ -58,8 +58,9 @@ export default async function EventDetailPage({
   // 참여자 여부 판단 (주최자 여부와 독립적으로 확인)
   const isParticipant = isDummyParticipant(id, DUMMY_OWNER_ID)
 
+  // DB의 status는 string 타입이므로 EventStatus로 단언하여 Badge 설정 조회
   const { label: statusLabel, variant: statusVariant } =
-    STATUS_BADGE_CONFIG[event.status]
+    STATUS_BADGE_CONFIG[event.status as EventStatus]
 
   return (
     <div className="flex flex-col">
@@ -118,7 +119,7 @@ export default async function EventDetailPage({
         {/* 날짜 */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Calendar size={16} aria-hidden="true" />
-          <span>{formatEventDate(event.date)}</span>
+          <span>{formatEventDate(event.event_date)}</span>
         </div>
 
         {/* 장소 */}

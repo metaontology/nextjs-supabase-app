@@ -19,7 +19,8 @@ const STATUS_BADGE_CONFIG: Record<
 }
 
 export function EventCard({ event, isOwner, className }: EventCardProps) {
-  const badgeConfig = STATUS_BADGE_CONFIG[event.status]
+  // DB의 status는 string 타입이므로 EventStatus로 단언하여 Badge 설정 조회
+  const badgeConfig = STATUS_BADGE_CONFIG[event.status as EventStatus]
 
   return (
     <Card className={cn('overflow-hidden', className)}>
@@ -59,7 +60,7 @@ export function EventCard({ event, isOwner, className }: EventCardProps) {
         {/* 날짜 */}
         <div className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
           <Calendar className="h-3.5 w-3.5 shrink-0" />
-          <span>{formatEventDate(event.date)}</span>
+          <span>{formatEventDate(event.event_date)}</span>
         </div>
 
         {/* 장소 */}

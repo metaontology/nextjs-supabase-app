@@ -27,7 +27,7 @@ export default async function EventEditPage({
   const defaultValues = {
     title: event.title,
     description: event.description ?? undefined,
-    date: isoToDatetimeLocal(event.date),
+    date: isoToDatetimeLocal(event.event_date),
     location: event.location,
     maxParticipants: event.max_participants ?? undefined,
   }

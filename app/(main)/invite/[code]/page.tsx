@@ -47,7 +47,8 @@ export default async function InvitePage({
   const participantCount = participants.length
   const alreadyJoined = isDummyParticipant(event.id, DUMMY_USER_ID)
 
-  const statusConfig = STATUS_CONFIG[event.status]
+  // DB의 status는 string 타입이므로 EventStatus로 단언하여 상태 설정 조회
+  const statusConfig = STATUS_CONFIG[event.status as keyof typeof STATUS_CONFIG]
 
   return (
     <main className="mx-auto max-w-lg">
@@ -80,7 +81,7 @@ export default async function InvitePage({
         {/* 날짜 */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Calendar className="size-4 shrink-0" />
-          <span>{formatEventDate(event.date)}</span>
+          <span>{formatEventDate(event.event_date)}</span>
         </div>
 
         {/* 장소 */}
