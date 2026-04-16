@@ -4,9 +4,17 @@
 // usePathname으로 현재 경로를 감지해 활성 탭을 표시
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Calendar, Home, Plus, User } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import {
+  Calendar,
+  Home,
+  LayoutDashboard,
+  LogOut,
+  Plus,
+  User,
+} from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { createClient } from '@/lib/supabase/client'
 import type { NavItem } from '@/lib/types'
 
 // 탭 목록: 홈, 내 이벤트, 새 이벤트, 프로필
@@ -36,9 +44,14 @@ const navItems: NavItem[] = [
 interface MobileNavProps {
   /** 이벤트 생성 탭 표시 여부 — false면 참여자 전용 네비게이션(3개 탭) */
   showCreateTab?: boolean
+  /** 관리자 여부 — true면 관리자 패널 탭 표시 */
+  isAdmin?: boolean
 }
 
-export function MobileNav({ showCreateTab = true }: MobileNavProps) {
+export function MobileNav({
+  showCreateTab = true,
+  isAdmin = false,
+}: MobileNavProps) {
   // showCreateTab이 false면 '새 이벤트' 탭 제외 (참여자 전용 네비게이션)
   const items = showCreateTab
     ? navItems
@@ -46,6 +59,13 @@ export function MobileNav({ showCreateTab = true }: MobileNavProps) {
 
   // 현재 경로 감지
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/auth/login')
+  }
 
   return (
     // 하단 고정 내비게이션 바
@@ -98,6 +118,34 @@ export function MobileNav({ showCreateTab = true }: MobileNavProps) {
             </li>
           )
         })}
+
+        {/* 관리자 패널 탭 — 관리자만 표시 */}
+        {isAdmin && (
+          <li className="flex-1">
+            <Link
+              href="/admin/dashboard"
+              className="flex flex-col items-center justify-center gap-1 py-2 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <LayoutDashboard
+                size={22}
+                strokeWidth={1.75}
+                aria-hidden="true"
+              />
+              <span className="text-xs leading-none font-medium">관리자</span>
+            </Link>
+          </li>
+        )}
+
+        {/* 로그아웃 탭 */}
+        <li className="flex-1">
+          <button
+            onClick={handleLogout}
+            className="flex w-full flex-col items-center justify-center gap-1 py-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <LogOut size={22} strokeWidth={1.75} aria-hidden="true" />
+            <span className="text-xs leading-none font-medium">로그아웃</span>
+          </button>
+        </li>
       </ul>
     </nav>
   )
