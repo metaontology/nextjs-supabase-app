@@ -27,14 +27,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
+      <body className={`${geistSans.className} bg-muted/30 antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          {/* 모바일 앱 스타일 — 최대 430px 중앙 정렬, 배경은 body 색상 */}
+          <div className="relative mx-auto min-h-screen w-full max-w-[430px] bg-background shadow-xl">
+            {children}
+          </div>
           <Toaster />
         </ThemeProvider>
       </body>
