@@ -13,7 +13,7 @@ import type { NavItem } from '@/lib/types'
 
 // 관리자 네비게이션 링크 목록
 const navItems: NavItem[] = [
-  { href: '/admin', label: '대시보드', icon: LayoutDashboard },
+  { href: '/admin/dashboard', label: '대시보드', icon: LayoutDashboard },
   { href: '/admin/events', label: '이벤트 관리', icon: Calendar },
   { href: '/admin/users', label: '사용자 관리', icon: Users },
   { href: '/admin/stats', label: '통계', icon: BarChart3 },
@@ -26,11 +26,8 @@ export function AdminSidebarNav() {
     <ul className="space-y-1">
       {navItems.map((item) => {
         const Icon = item.icon
-        // /admin은 정확 일치만, 나머지는 하위 경로도 포함
         const isActive =
-          item.href === '/admin'
-            ? pathname === '/admin'
-            : pathname === item.href || pathname.startsWith(`${item.href}/`)
+          pathname === item.href || pathname.startsWith(`${item.href}/`)
 
         return (
           <li key={item.href}>
