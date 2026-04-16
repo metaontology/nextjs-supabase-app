@@ -1,18 +1,11 @@
-// 사용자 관련 타입 정의
-// TODO: Task 007 (DB 스키마 확정) 이후 database.types.ts 기반 실제 타입으로 교체 예정
+// 사용자 도메인 타입 — database.types.ts 기반 type alias
+import type { Database } from './database.types'
 
-/** 사용자 권한 */
+/** profiles 테이블 Row 타입 */
+export type UserProfile = Database['public']['Tables']['profiles']['Row']
+
+/**
+ * 사용자 권한 — DB의 role 컬럼 값에 매핑
+ * profiles 테이블의 role 컬럼은 string 타입이지만 애플리케이션에서는 이 값만 사용
+ */
 export type UserRole = 'user' | 'admin'
-
-/** 사용자 프로필 (profiles 테이블 기반) */
-export interface UserProfile {
-  id: string
-  email: string | null
-  full_name: string | null
-  avatar_url: string | null
-  bio: string | null
-  website: string | null
-  role: UserRole
-  created_at: string
-  updated_at: string
-}

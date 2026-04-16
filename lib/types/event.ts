@@ -1,35 +1,32 @@
-// 이벤트 관련 임시 프론트엔드 타입 정의
-// TODO: Task 007 (DB 스키마 확정) 이후 database.types.ts 기반 실제 타입으로 교체 예정
+// 이벤트 도메인 타입 — database.types.ts 기반 type alias
+import type { Database } from './database.types'
 
-/** 이벤트 상태 */
+/** events 테이블 Row 타입 */
+export type Event = Database['public']['Tables']['events']['Row']
+
+/** events 테이블 Insert 타입 */
+export type EventInsert = Database['public']['Tables']['events']['Insert']
+
+/** events 테이블 Update 타입 */
+export type EventUpdate = Database['public']['Tables']['events']['Update']
+
+/** event_participants 테이블 Row 타입 */
+export type EventParticipant =
+  Database['public']['Tables']['event_participants']['Row']
+
+/** event_participants 테이블 Insert 타입 */
+export type EventParticipantInsert =
+  Database['public']['Tables']['event_participants']['Insert']
+
+/**
+ * 이벤트 상태 — DB에서는 CHECK 제약으로만 사용하며 Enum이 아니므로 TypeScript 타입으로 유지
+ */
 export type EventStatus = 'upcoming' | 'ongoing' | 'ended'
 
-/** 이벤트 */
-export interface Event {
-  id: string
-  title: string
-  description: string | null
-  /** 이벤트 날짜 및 시간 (ISO 8601 형식, UTC) */
-  date: string
-  location: string
-  invite_code: string
-  cover_image_url: string | null
-  max_participants: number | null
-  status: EventStatus
-  created_by: string
-  created_at: string
-  updated_at: string
-}
-
-/** 이벤트 참여자 */
-export interface EventParticipant {
-  id: string
-  event_id: string
-  user_id: string
-  joined_at: string
-}
-
-/** 참여자 목록 포함 이벤트 */
+/**
+ * 참여자 목록 포함 이벤트 — JOIN 결과용 확장 타입
+ * events 테이블 Row를 베이스로 participants(참여자 배열)와 participant_count(참여자 수) 추가
+ */
 export interface EventWithParticipants extends Event {
   participants: EventParticipant[]
   participant_count: number
